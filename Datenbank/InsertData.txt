@@ -1,0 +1,2 @@
+INSERT INTO `gruppen`(`bezeichnung`) VALUES ("Administratoren");
+INSERT INTO `gruppen`(`bezeichnung`) VALUES ("Kunden");

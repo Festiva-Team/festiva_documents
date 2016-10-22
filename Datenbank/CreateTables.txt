@@ -1,0 +1,107 @@
+artikel
+CREATE TABLE `artikel` (
+ `id` int(3) NOT NULL AUTO_INCREMENT,
+ `beschreibung` varchar(600) NOT NULL,
+ `preis` decimal(5,2) NOT NULL,
+ `istgelöscht` tinyint(1) NOT NULL DEFAULT '0',
+ `festivals_id` int(3) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `festivals_id` (`festivals_id`),
+ CONSTRAINT `artikel_ibfk_1` FOREIGN KEY (`festivals_id`) REFERENCES `festivals` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+benutzer
+CREATE TABLE `benutzer` (
+ `id` int(3) NOT NULL AUTO_INCREMENT,
+ `vorname` varchar(50) DEFAULT NULL,
+ `nachname` varchar(50) DEFAULT NULL,
+ `strasse` varchar(50) DEFAULT NULL,
+ `hausnummer` varchar(4) DEFAULT NULL,
+ `plz` int(5) DEFAULT NULL,
+ `ort` varchar(40) DEFAULT NULL,
+ `emailadresse` varchar(40) NOT NULL,
+ `passworthash` varchar(40) NOT NULL,
+ `istgesperrt` tinyint(1) NOT NULL DEFAULT '0',
+ `istgelöscht` tinyint(1) NOT NULL DEFAULT '0',
+ `iban` varchar(34) DEFAULT NULL,
+ `bic` varchar(11) DEFAULT NULL,
+ `einzugsermächtigungerteilt` tinyint(1) NOT NULL DEFAULT '0',
+ `gruppen_id` int(3) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `gruppen_id` (`gruppen_id`),
+ CONSTRAINT `benutzer_ibfk_1` FOREIGN KEY (`gruppen_id`) REFERENCES `gruppen` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1
+bestellpositionen
+CREATE TABLE `bestellpositionen` (
+ `id` int(3) NOT NULL AUTO_INCREMENT,
+ `menge` int(5) NOT NULL,
+ `artikel_id` int(3) NOT NULL,
+ `beschreibung` text NOT NULL,
+ `preis` decimal(5,2) NOT NULL,
+ `bestellungen_id` int(3) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `bestellungen_id` (`bestellungen_id`),
+ KEY `artikel_id` (`artikel_id`),
+ CONSTRAINT `bestellpositionen_ibfk_1` FOREIGN KEY (`bestellungen_id`) REFERENCES `bestellungen` (`id`),
+ CONSTRAINT `bestellpositionen_ibfk_2` FOREIGN KEY (`artikel_id`) REFERENCES `artikel` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+bestellungen
+CREATE TABLE `bestellungen` (
+ `id` int(3) NOT NULL AUTO_INCREMENT,
+ `datum` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ `perpost` tinyint(1) NOT NULL,
+ `benutzer_id` int(3) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `benutzer_id` (`benutzer_id`),
+ CONSTRAINT `bestellungen_ibfk_1` FOREIGN KEY (`benutzer_id`) REFERENCES `benutzer` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+festivals
+CREATE TABLE `festivals` (
+ `id` int(3) NOT NULL AUTO_INCREMENT,
+ `name` varchar(50) NOT NULL,
+ `ort` varchar(40) NOT NULL,
+ `kurzbeschreibung` mediumtext NOT NULL,
+ `langbeschreibung` longtext NOT NULL,
+ `startdatum` date NOT NULL,
+ `enddatum` date NOT NULL,
+ `istgelöscht` tinyint(1) NOT NULL DEFAULT '0',
+ `bildpfad` varchar(40) DEFAULT NULL,
+ `kategorien_id` int(3) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `kategorien_id` (`kategorien_id`),
+ CONSTRAINT `festivals_ibfk_1` FOREIGN KEY (`kategorien_id`) REFERENCES `kategorien` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+gruppen
+CREATE TABLE `gruppen` (
+ `id` int(3) NOT NULL AUTO_INCREMENT,
+ `bezeichnung` varchar(100) NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1
+kategorien
+CREATE TABLE `kategorien` (
+ `id` int(3) NOT NULL AUTO_INCREMENT,
+ `name` varchar(30) NOT NULL,
+ `beschreibung` mediumtext NOT NULL,
+ `istgelöscht` tinyint(1) NOT NULL DEFAULT '0',
+ `bildpfad` varchar(40) DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+warenkorbelemente
+CREATE TABLE `warenkorbelemente` (
+ `id` int(3) NOT NULL AUTO_INCREMENT,
+ `menge` int(5) NOT NULL,
+ `warenkörbe_id` int(3) NOT NULL,
+ `artikel_id` int(3) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `warenkörbe_id` (`warenkörbe_id`),
+ KEY `artikel_id` (`artikel_id`),
+ CONSTRAINT `warenkorbelemente_ibfk_1` FOREIGN KEY (`warenkörbe_id`) REFERENCES `warenkörbe` (`id`),
+ CONSTRAINT `warenkorbelemente_ibfk_2` FOREIGN KEY (`artikel_id`) REFERENCES `artikel` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+warenkörbe
+CREATE TABLE `warenkörbe` (
+ `id` int(3) NOT NULL AUTO_INCREMENT,
+ `benutzer_id` int(3) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `benutzer_id` (`benutzer_id`),
+ CONSTRAINT `warenkörbe_ibfk_1` FOREIGN KEY (`benutzer_id`) REFERENCES `benutzer` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
