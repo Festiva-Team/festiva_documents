@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 19. Nov 2016 um 11:27
+-- Erstellungszeit: 19. Nov 2016 um 22:14
 -- Server-Version: 10.1.16-MariaDB
 -- PHP-Version: 7.0.9
 
@@ -39,13 +39,13 @@ CREATE TABLE `kategorien` (
 --
 
 INSERT INTO `kategorien` (`id`, `name`, `beschreibung`, `istgelöscht`, `bildpfad`) VALUES
-(1, 'Rock', 'Rock Festivals', 0, 'Kategorie_1_1478601263477'),
-(2, 'Schlager', 'Schlager Festivals', 0, 'Kategorie_2_1478601299269'),
-(3, 'Metal', 'Metal Festivals', 0, 'Kategorie_3_1478601338322'),
-(4, 'Electro', 'Electro Festivals\r\n', 0, 'Kategorie_4_1479548950817'),
-(5, 'Country', 'Country Festivals', 0, 'Kategorie_5_1479551153682'),
-(6, 'Hip Hop', 'Hip Hop Festivals', 0, 'Kategorie_6_1479549103540'),
-(7, 'Reggae', 'Reggae Festivals', 0, 'Kategorie_7_1479549174784');
+(1, 'Rock', 'Rock Festivals', 0, 'Kategorie_1_1479581227784'),
+(2, 'Schlager', 'Schlager Festivals', 0, 'Kategorie_2_1479581242306'),
+(3, 'Metal', 'Metal Festivals', 0, 'Kategorie_3_1479581263644'),
+(4, 'Electro', 'Electro Festivals\r\n', 0, 'Kategorie_4_1479581284869'),
+(5, 'Country', 'Country Festivals', 0, 'Kategorie_5_1479581296290'),
+(6, 'Hip Hop', 'Hip Hop Festivals', 0, 'Kategorie_6_1479581310032'),
+(7, 'Reggae', 'Reggae Festivals', 0, 'Kategorie_7_1479581331205');
 
 --
 -- Indizes der exportierten Tabellen
